@@ -43,7 +43,7 @@
     background: linear-gradient(180deg, #2c3a63 0%, #b06a4e 55%, #26343e 100%);
   }
   .hero-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
-    filter: blur(0.5px) saturate(1.05) contrast(1.01); }
+    filter: blur(0.5px) saturate(1.14) contrast(1.03); }
   .hero-art .grain {
     position: absolute; inset: 0; z-index: 1; pointer-events: none;
     opacity: .34; mix-blend-mode: overlay; background-repeat: repeat;
@@ -406,17 +406,17 @@ function buildScene() {
     const grad = sg.createLinearGradient(0, 0, 0, 512);
     grad.addColorStop(0.0, '#1d2447');
     grad.addColorStop(0.05, '#2c3560');
-    grad.addColorStop(0.09, '#5a4a72');
-    grad.addColorStop(0.13, '#a86a68');
-    grad.addColorStop(0.17, '#f0a868');
-    grad.addColorStop(0.21, '#ffc98c');
-    grad.addColorStop(0.27, '#c98a5e');
+    grad.addColorStop(0.09, '#66487c');
+    grad.addColorStop(0.13, '#c06a5c');
+    grad.addColorStop(0.17, '#ff9e50');
+    grad.addColorStop(0.21, '#ffd9a0');
+    grad.addColorStop(0.27, '#dd8f52');
     grad.addColorStop(0.4, '#4a4470');
     grad.addColorStop(1.0, '#2c3a63');
     sg.fillStyle = grad; sg.fillRect(0, 0, 1024, 512);
-    const glow = sg.createRadialGradient(430, 86, 8, 430, 86, 190);
-    glow.addColorStop(0, 'rgba(255,232,180,0.95)');
-    glow.addColorStop(0.3, 'rgba(255,200,125,0.5)');
+    const glow = sg.createRadialGradient(430, 86, 8, 430, 86, 215);
+    glow.addColorStop(0, 'rgba(255,234,185,1.0)');
+    glow.addColorStop(0.3, 'rgba(255,198,120,0.58)');
     glow.addColorStop(1, 'rgba(255,180,100,0)');
     sg.fillStyle = glow; sg.fillRect(0, 0, 1024, 512);
     /* thin cloud bands inside the visible strip, lit from below */
@@ -447,8 +447,8 @@ function buildScene() {
     const grad = eg.createLinearGradient(0, 0, 0, 256);
     grad.addColorStop(0, '#2c3560');
     grad.addColorStop(0.44, '#6a7aa8');
-    grad.addColorStop(0.56, '#f0b478');
-    grad.addColorStop(0.64, '#c98f66');
+    grad.addColorStop(0.56, '#ffab5e');
+    grad.addColorStop(0.64, '#dd8f52');
     grad.addColorStop(1, '#1d2733');
     eg.fillStyle = grad; eg.fillRect(0, 0, 512, 256);
     const blob = eg.createRadialGradient(215, 140, 2, 215, 140, 62);
@@ -569,7 +569,7 @@ function buildScene() {
   const wc = document.createElement('canvas'); wc.width = wc.height = 512;
   {
     const g2 = wc.getContext('2d');
-    mottle(g2, 512, '#256f9d', [
+    mottle(g2, 512, '#1f6391', [
       ['#174d73', 0.18, 40, 130, 26],
       ['#3585b5', 0.2, 30, 100, 22],
       ['#1d5f7d', 0.14, 50, 150, 18],
@@ -669,11 +669,11 @@ function buildScene() {
       tg.beginPath(); tg.arc(cx, cy, r, 0, 7); tg.fill();
     };
     for (let x = -24; x <= 24; x += 3.4) {
-      blob(x, 0.4, 5.4, '7,32,58', 0.16);           // deep channel
-      blob(x, -6.4, 3.6, '232,150,84', 0.12);       // skyline reflection
+      blob(x, 0.4, 5.4, '7,32,58', 0.2);           // deep channel
+      blob(x, -6.4, 3.6, '232,150,84', 0.16);       // skyline reflection
       blob(x, 6.6, 3.2, '70,150,150', 0.13);        // near-shore shallows
     }
-    blob(2.5, -6.6, 4.4, '255,176,102', 0.15);      // afterglow pool
+    blob(2.5, -6.6, 4.4, '255,176,102', 0.19);      // afterglow pool
     /* individual light streaks: each lit tower and crown throws a
        broken reflection down the water toward the viewer, the way
        shore lights smear across a real bay at dusk */
@@ -728,7 +728,7 @@ function buildScene() {
     const glintTex = new THREE.CanvasTexture(gc2);
     glintTex.colorSpace = THREE.SRGBColorSpace;
     const glint = new THREE.Mesh(new THREE.PlaneGeometry(36, 10.5),
-      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.44,
+      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.52,
         blending: THREE.AdditiveBlending, depthWrite: false }));
     glint.rotation.x = -Math.PI / 2;
     glint.rotation.z = 0.18;
@@ -737,7 +737,7 @@ function buildScene() {
     scene.add(glint);
     /* a narrower, brighter core where the sun's path crosses the bay */
     const glintCore = new THREE.Mesh(new THREE.PlaneGeometry(18, 4.5),
-      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.45,
+      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.55,
         blending: THREE.AdditiveBlending, depthWrite: false }));
     glintCore.rotation.x = -Math.PI / 2;
     glintCore.rotation.z = 0.18;
@@ -767,11 +767,17 @@ function buildScene() {
     const dc = document.createElement('canvas'); dc.width = 512; dc.height = 256;
     const dg = dc.getContext('2d');
     const drng = mulberry32(4451);
-    mottle(dg, 512, '#4e4a48', [
-      ['#3c3835', 0.25, 30, 110, 22],
-      ['#625c56', 0.2, 24, 90, 18],
-      ['#57504a', 0.18, 16, 60, 20],
-    ], drng, ['#8a8078', 0.22, 300, 2.2]);
+    mottle(dg, 512, '#565149', [
+      ['#413e3a', 0.25, 30, 110, 22],
+      ['#6a635b', 0.2, 24, 90, 18],
+      ['#5d5850', 0.18, 16, 60, 20],
+    ], drng, ['#948a7e', 0.22, 300, 2.2]);
+    /* alternate slabs carry a whisper more or less light, so the
+       paving reads as laid stone zones, not one poured sheet */
+    for (let sx = 0; sx < 512; sx += 64) {
+      dg.fillStyle = (sx / 64) % 2 ? 'rgba(255,240,214,0.05)' : 'rgba(10,10,16,0.05)';
+      dg.fillRect(sx, 0, 64, 256);
+    }
     dg.strokeStyle = 'rgba(16,14,12,0.35)'; dg.lineWidth = 2;
     for (let x = 0; x <= 512; x += 64) { dg.beginPath(); dg.moveTo(x, 0); dg.lineTo(x, 256); dg.stroke(); }
     dg.beginPath(); dg.moveTo(0, 128); dg.lineTo(512, 128); dg.stroke();
@@ -811,7 +817,7 @@ function buildScene() {
     scene.add(bank);
     const foamTex = glowTexture('rgba(235,245,255,0.8)', 'rgba(235,245,255,0)');
     const foam = new THREE.Mesh(new THREE.PlaneGeometry(26.4, 0.55),
-      new THREE.MeshBasicMaterial({ map: foamTex, transparent: true, opacity: 0.16,
+      new THREE.MeshBasicMaterial({ map: foamTex, transparent: true, opacity: 0.22,
         blending: THREE.AdditiveBlending, depthWrite: false }));
     foam.rotation.x = -Math.PI / 2;
     foam.position.set(-13, 0.325, 7.95);
@@ -998,18 +1004,31 @@ function buildScene() {
     });
   }
 
+  /* streetlights along the far waterfront: a dotted line of warm
+     lamps between the motorcade road and the tower bases, so the
+     shore reads as a lit boulevard, not a silhouette */
+  {
+    const srng2 = mulberry32(44500);
+    for (let x = -23.5; x <= 23.5; x += 3.6) {
+      const jx = x + (srng2() - 0.5) * 0.8;
+      const dot = glowSprite(srng2() < 0.75 ? warmGlowTex : coolGlowTex, 0.42, 0.5);
+      dot.position.set(jx, 1.52, -8.55);
+      scene.add(dot);
+    }
+  }
+
   /* lamps along the near promenade */
   {
     const poleMat = std(0x22262e, 0.6, 0.4);
     const poolTex = glowTexture('rgba(255,205,130,0.85)', 'rgba(255,150,60,0)');
     for (let x = -23; x <= -2; x += 4.2) {
       cyl(0.035, 0.045, 1.5, poleMat, x, 1.65, 9.45);
-      const lamp = glowSprite(warmGlowTex, 0.85, 0.75);
+      const lamp = glowSprite(warmGlowTex, 0.9, 0.88);
       lamp.position.set(x, 2.45, 9.45);
       scene.add(lamp);
       /* each lamp spills a pool of light across the wet stone */
-      const pool = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 3.4),
-        new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, opacity: 0.34,
+      const pool = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 3.8),
+        new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, opacity: 0.44,
           blending: THREE.AdditiveBlending, depthWrite: false }));
       pool.rotation.x = -Math.PI / 2;
       pool.position.set(x, 0.925, 10.9);
@@ -1098,6 +1117,221 @@ function buildScene() {
     const plaza = glowSprite(warmGlowTex, 8.5, 0.16);
     plaza.position.set(-7.9, 1.7, 10.1);
     scene.add(plaza);
+  }
+
+  /* ---------- promenade life: plaza, carpet, planting, people ----
+     The deck was one empty sheet of stone; a summit photograph
+     would show a patterned plaza under the flags, a red carpet
+     running to the venue door, planters along the back edge and
+     the press corps silhouetted against the water. Everything is
+     small, dark and low — texture and scale, not clutter. */
+  {
+    /* patterned plaza: concentric rings and radial joints painted
+       on a disc laid over the deck beneath the flag poles */
+    const pc = document.createElement('canvas'); pc.width = pc.height = 256;
+    const pg = pc.getContext('2d');
+    mottle(pg, 256, '#5d574f', [
+      ['#4a4640', 0.22, 20, 70, 16],
+      ['#6e675e', 0.18, 16, 55, 14],
+    ], mulberry32(1711), ['#9a9084', 0.2, 200, 2]);
+    pg.strokeStyle = 'rgba(18,16,14,0.4)';
+    for (const r of [42, 78, 112]) {
+      pg.lineWidth = r === 78 ? 5 : 2.5;
+      pg.beginPath(); pg.arc(128, 128, r, 0, 7); pg.stroke();
+    }
+    pg.lineWidth = 2;
+    for (let i = 0; i < 12; i++) {
+      const a = i / 12 * Math.PI * 2;
+      pg.beginPath();
+      pg.moveTo(128 + Math.cos(a) * 42, 128 + Math.sin(a) * 42);
+      pg.lineTo(128 + Math.cos(a) * 126, 128 + Math.sin(a) * 126);
+      pg.stroke();
+    }
+    pg.fillStyle = 'rgba(255,214,150,0.10)';
+    pg.beginPath(); pg.arc(128, 128, 40, 0, 7); pg.fill();
+    const plazaTex = new THREE.CanvasTexture(pc);
+    plazaTex.colorSpace = THREE.SRGBColorSpace;
+    const plazaDisc = new THREE.Mesh(new THREE.CircleGeometry(3.6, 40),
+      new THREE.MeshStandardMaterial({ map: plazaTex, roughness: 0.45,
+        metalness: 0.05, envMapIntensity: 0.7 }));
+    plazaDisc.rotation.x = -Math.PI / 2;
+    plazaDisc.position.set(-7.9, 0.925, 11.9);
+    plazaDisc.receiveShadow = true;
+    scene.add(plazaDisc);
+
+    /* the red carpet: from the flag plaza toward the venue door
+       at the deck's landward edge, gold trim down both sides */
+    const carpet = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 3.9), std(0x7e1f24, 0.92));
+    carpet.rotation.x = -Math.PI / 2;
+    carpet.position.set(-7.75, 0.928, 13.35);
+    carpet.receiveShadow = true;
+    scene.add(carpet);
+    const trimMat = new THREE.MeshBasicMaterial({ color: 0xc9a24d });
+    for (const dx of [-0.92, 0.92]) {
+      const trim = new THREE.Mesh(new THREE.PlaneGeometry(0.07, 3.9), trimMat);
+      trim.rotation.x = -Math.PI / 2;
+      trim.position.set(-7.75 + dx, 0.93, 13.35);
+      scene.add(trim);
+    }
+
+    /* planters with clipped hedges along the landward edge and
+       flanking the carpet's end — dark green blocks that give the
+       deck a back wall and the eye a scale reference */
+    const hc = document.createElement('canvas'); hc.width = hc.height = 128;
+    const hg = hc.getContext('2d');
+    mottle(hg, 128, '#2e4630', [
+      ['#1e3322', 0.3, 10, 40, 22],
+      ['#42684a', 0.25, 8, 30, 20],
+      ['#38543c', 0.2, 12, 44, 14],
+    ], mulberry32(7331), ['#5d8263', 0.25, 220, 1.8]);
+    const hedgeTex = new THREE.CanvasTexture(hc);
+    hedgeTex.colorSpace = THREE.SRGBColorSpace;
+    const hedgeMat = new THREE.MeshStandardMaterial({ map: hedgeTex, roughness: 0.95 });
+    const planterMat = std(0x3a3733, 0.8);
+    function planter(x, z, w) {
+      box(w, 0.34, 0.52, planterMat, x, 1.07, z);
+      const hedge = box(w - 0.12, 0.3, 0.42, hedgeMat, x, 1.38, z);
+      hedge.castShadow = false;
+    }
+    for (const px of [-22.5, -19.3, -16.1, -12.9, -3.4]) planter(px, 14.85, 2.9);
+    planter(-10.4, 14.6, 1.1);
+    planter(-5.1, 14.6, 1.1);
+
+    /* people: small dark silhouettes — two photographers working
+       a tripod by the flags, a pair mid-deck, one staffer near the
+       railing. The low sun throws their shadows across the stone. */
+    const figMat = std(0x15171f, 0.92);
+    const figMat2 = std(0x3d1f22, 0.92);
+    function figure(x, z, mat, s = 1) {
+      const g = new THREE.Group();
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(0.085 * s, 0.125 * s, 0.66 * s, 8), mat);
+      body.position.y = 0.52 * s;
+      body.castShadow = true;
+      g.add(body);
+      const head = new THREE.Mesh(new THREE.SphereGeometry(0.105 * s, 10, 8), mat);
+      head.position.y = 0.97 * s;
+      head.castShadow = true;
+      g.add(head);
+      g.position.set(x, 0.91, z);
+      scene.add(g);
+    }
+    figure(-10.9, 11.6, figMat);
+    figure(-10.15, 12.35, figMat2);
+    figure(-16.8, 12.2, figMat, 1.04);
+    figure(-16.05, 12.9, figMat, 0.97);
+    figure(-21.5, 10.7, figMat, 1.02);
+    /* the tripod between the photographers and the flags */
+    const triMat = std(0x0f1116, 0.7, 0.3);
+    for (let i = 0; i < 3; i++) {
+      const a = i / 3 * Math.PI * 2 + 0.5;
+      const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.85, 6), triMat);
+      leg.position.set(-10.55 + Math.cos(a) * 0.14, 1.3, 11.9 + Math.sin(a) * 0.14);
+      leg.rotation.z = Math.cos(a) * 0.3;
+      leg.rotation.x = -Math.sin(a) * 0.3;
+      scene.add(leg);
+    }
+    box(0.2, 0.13, 0.14, triMat, -10.55, 1.76, 11.9);
+  }
+
+  /* ---------- mid-bay life: moored boats, a ferry, buoys ---------
+     Scale cues between the two shores: small boats riding at the
+     promenade's water edge, a lit ferry crossing with a V wake,
+     and channel buoys with their light smeared on the water. */
+  {
+    const smearTex = glowTexture('rgba(190,215,255,0.6)', 'rgba(190,215,255,0)');
+    function smear(x, z, w, l, opacity) {
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(w, l),
+        new THREE.MeshBasicMaterial({ map: smearTex, transparent: true, opacity,
+          blending: THREE.AdditiveBlending, depthWrite: false }));
+      m.rotation.x = -Math.PI / 2;
+      m.position.set(x, 0.325, z);
+      m.renderOrder = 2;
+      scene.add(m);
+    }
+    /* moored boats: tied up along the promenade's near edge and
+       off its end, where the foreground water gives them room to
+       read — hull, cabin or mast, a lamp, a smeared reflection */
+    const hullCols = [0xd8d5cc, 0x6f4234, 0x39586b];
+    [[-24.8, 16.4, 0.55], [-19.0, 17.4, 0.12], [-12.5, 17.9, -0.05]].forEach(([bx, bz, rot], i) => {
+      const grp = new THREE.Group();
+      const hull = box(1.9, 0.34, 0.52, std(hullCols[i], 0.55, 0.15), 0, 0.18, 0, grp);
+      hull.castShadow = false;
+      if (i === 1) {
+        const mast = cyl(0.02, 0.025, 1.3, std(0x8a8578, 0.6, 0.3), -0.2, 0.95, 0, grp);
+        mast.castShadow = false;
+      } else {
+        const cab = box(0.7, 0.3, 0.4, std(0x2e3841, 0.6, 0.2), -0.18, 0.48, 0, grp);
+        cab.castShadow = false;
+      }
+      const lampDot = glowSprite(warmGlowTex, 0.42, 0.75);
+      lampDot.position.set(0.65, 0.58, 0); grp.add(lampDot);
+      grp.position.set(bx, 0.3, bz);
+      grp.rotation.y = rot;
+      scene.add(grp);
+      smear(bx, bz + 0.45, 2.3, 1.5, 0.34);
+    });
+
+    /* the ferry: white hull, a lit window strip, crossing the bay
+       left to right with its wake fanning out behind it */
+    const fgrp = new THREE.Group();
+    const fBand = box(3.7, 0.3, 1.0, std(0x1e3844, 0.6, 0.2), 0, 0.3, 0, fgrp);
+    fBand.castShadow = false;
+    const fHull = box(3.7, 0.34, 0.94, std(0xe9e6de, 0.5, 0.1), 0, 0.6, 0, fgrp);
+    fHull.castShadow = false;
+    const fDeck = box(2.7, 0.46, 0.8, std(0xdcd8cf, 0.55, 0.1), -0.15, 1.0, 0, fgrp);
+    fDeck.castShadow = false;
+    const winStrip = new THREE.Mesh(new THREE.BoxGeometry(2.72, 0.16, 0.82),
+      new THREE.MeshBasicMaterial({ color: 0xffd9a0 }));
+    winStrip.position.set(-0.15, 1.04, 0); fgrp.add(winStrip);
+    const funnel = box(0.42, 0.5, 0.42, std(0x2a2e33, 0.7), -1.15, 1.45, 0, fgrp);
+    funnel.castShadow = false;
+    const mastLight = glowSprite(warmGlowTex, 0.6, 0.85);
+    mastLight.position.set(1.55, 1.35, 0); fgrp.add(mastLight);
+    const sternLight = glowSprite(coolGlowTex, 0.45, 0.7);
+    sternLight.position.set(-1.9, 0.75, 0); fgrp.add(sternLight);
+    fgrp.position.set(-7.5, 0.3, 0.4);
+    fgrp.rotation.y = -0.1;
+    scene.add(fgrp);
+    const fwC = document.createElement('canvas'); fwC.width = 128; fwC.height = 64;
+    const fwg = fwC.getContext('2d');
+    const fwgr = fwg.createRadialGradient(64, 32, 2, 64, 32, 62);
+    fwgr.addColorStop(0, 'rgba(230,244,255,0.5)');
+    fwgr.addColorStop(1, 'rgba(230,244,255,0)');
+    fwg.fillStyle = fwgr; fwg.fillRect(0, 0, 128, 64);
+    const fwTex = new THREE.CanvasTexture(fwC);
+    function wakePlane(w, l, x, z, rz, opacity) {
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(w, l),
+        new THREE.MeshBasicMaterial({ map: fwTex, transparent: true, opacity, depthWrite: false }));
+      m.rotation.x = -Math.PI / 2;
+      m.rotation.z = rz;
+      m.position.set(x, 0.335, z);
+      m.renderOrder = 2;
+      scene.add(m);
+    }
+    wakePlane(5.4, 1.6, -11.3, 0.85, -0.1, 0.5);          // foam trail
+    wakePlane(3.6, 0.42, -10.9, -0.35, 0.38, 0.38);       // V arm, far side
+    wakePlane(3.6, 0.42, -10.9, 2.05, -0.58, 0.38);       // V arm, near side
+
+    /* channel buoys: red and green, light carried down the water */
+    const redGlow = glowTexture('rgba(255,100,80,0.9)', 'rgba(255,60,40,0)');
+    const grnGlow = glowTexture('rgba(110,255,170,0.9)', 'rgba(40,220,130,0)');
+    for (const [bx, bz, col, gtex] of [[-16.5, -3.2, 0xa33327, redGlow],
+                                       [1.5, -4.8, 0x1f7a4d, grnGlow],
+                                       [17.0, -2.4, 0xa33327, redGlow]]) {
+      const buoy = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.17, 0.44, 10), std(col, 0.6, 0.2));
+      buoy.position.set(bx, 0.48, bz);
+      scene.add(buoy);
+      const bl = glowSprite(gtex, 0.5, 0.8);
+      bl.position.set(bx, 0.84, bz);
+      scene.add(bl);
+      const streak = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 1.5),
+        new THREE.MeshBasicMaterial({ map: gtex, transparent: true, opacity: 0.22,
+          blending: THREE.AdditiveBlending, depthWrite: false }));
+      streak.rotation.x = -Math.PI / 2;
+      streak.position.set(bx, 0.328, bz + 0.7);
+      streak.renderOrder = 2;
+      scene.add(streak);
+    }
   }
 
   /* a small patrol boat crossing the lower bay, wake behind it */

@@ -23,7 +23,7 @@ import sys
 import cv2
 
 HERO_X0, HERO_Y0, HERO_X1, HERO_Y1 = 27, 119, 997, 365
-STRENGTH = 1.4  # picked by inspection: crisp windows/flags, no halos
+STRENGTH = 1.5  # A/B-tested vs 1.4: crisper edges, no halo overshoot
 BLUR_SIGMA = 3.0
 
 
