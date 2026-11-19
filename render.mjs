@@ -6,7 +6,9 @@
 // page in headless Chromium, and screenshots it once the 3D hero flags
 // itself ready. The shot is taken at 2x (2048x2048) and reduced with
 // PIL's Lanczos filter, which keeps the small typeset text and the hero
-// legible when the image is shrunk again for judging. Playwright lives
+// legible when the image is shrunk again for judging; a final
+// hero-only unsharp mask (sharpen_hero.py) then restores the bite the
+// downscale took out of the rendered scene. Playwright lives
 // in ~/workspace/tools/pw on this machine and is required from there,
 // since this repo intentionally carries no node_modules.
 import { createRequire } from 'node:module';
@@ -75,5 +77,12 @@ im = im.resize((1024, 1024), Image.LANCZOS)
 im.save(sys.argv[2], optimize=True)
 print('downscaled ->', sys.argv[2], im.size)
 `, rawPath, finalPath], { stdio: 'inherit' });
+
+/* Finishing step: the user's unsharp mask (OpenCV, in the persistent
+   venv at ~/workspace/tools/pyvenv) applied to the hero-art rectangle
+   only — see sharpen_hero.py. Runs on the downscaled final image, so
+   the crispness it adds survives to the judged 1024x1024 file. */
+execFileSync('/home/hatch/workspace/tools/pyvenv/bin/python',
+  [join(repoDir, 'sharpen_hero.py'), finalPath], { stdio: 'inherit' });
 unlinkSync(rawPath);
 console.log(`wrote ${finalPath}`);

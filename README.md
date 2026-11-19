@@ -17,7 +17,7 @@ One image that sums up the world's news of **Thursday 19 November 2026**, drawn 
 - **Games** — GTA VI launches worldwide, with midnight queues for the most anticipated game of the decade.
 - **Markets** — Anthropic raises $81.3 billion at a $1.5 trillion valuation, the largest IPO ever.
 
-The poster itself is `poster.html` — a single self-contained file whose hero is a real-time 3D scene (Three.js/WebGL: procedural dusk bay, lit-window skyline, painted flags, motorcade lights) with a photoreal finish — PMREM sky ambience, ACES tone mapping, broken sun glint and sensor grain on the hero only — composited with flat typeset text and inline-SVG panel art, then rendered to `entry.png` (1024 × 1024) by `render.mjs`. No external assets, no webfonts, no network.
+The poster itself is `poster.html` — a single self-contained file whose hero is a real-time 3D scene (Three.js/WebGL: procedural dusk bay, lit-window skyline, painted flags, motorcade lights) with a photoreal finish — PMREM sky ambience, ACES tone mapping, broken sun glint and sensor grain on the hero only, plus a final hero-only unsharp mask (`sharpen_hero.py`, OpenCV) that restores the scene's edge bite after the downscale — composited with flat typeset text and inline-SVG panel art, then rendered to `entry.png` (1024 × 1024) by `render.mjs`. No external assets, no webfonts, no network.
 
 ## Run it
 
