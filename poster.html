@@ -335,7 +335,7 @@ function buildScene() {
   /* dusk grade: filmic curve, exposure held a touch lower than a noon
      scene so the lit windows and headlight glows carry the frame */
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.12;
+  renderer.toneMappingExposure = 1.16;
 
   const scene = new THREE.Scene();
 
@@ -395,31 +395,49 @@ function buildScene() {
     return m;
   }
 
-  /* ---------- dusk sky: indigo zenith melting to an amber horizon,
-     with the sun's afterglow pooled over the bay ---------- */
+  /* ---------- dusk sky: the background is screen-space, and the
+     scene covers all but its top sliver — so the whole sunset is
+     compressed into that top band: indigo zenith melting through
+     mauve to an amber horizon that sits just over the tower line,
+     with the sun's afterglow pooled left of centre ---------- */
   {
     const sc = document.createElement('canvas'); sc.width = 1024; sc.height = 512;
     const sg = sc.getContext('2d');
     const grad = sg.createLinearGradient(0, 0, 0, 512);
-    grad.addColorStop(0.0, '#232c52');
-    grad.addColorStop(0.34, '#4a4470');
-    grad.addColorStop(0.55, '#96607a');
-    grad.addColorStop(0.68, '#e08a5c');
-    grad.addColorStop(0.78, '#f4b878');
-    grad.addColorStop(1.0, '#7a5a48');
+    grad.addColorStop(0.0, '#1d2447');
+    grad.addColorStop(0.05, '#2c3560');
+    grad.addColorStop(0.09, '#5a4a72');
+    grad.addColorStop(0.13, '#a86a68');
+    grad.addColorStop(0.17, '#f0a868');
+    grad.addColorStop(0.21, '#ffc98c');
+    grad.addColorStop(0.27, '#c98a5e');
+    grad.addColorStop(0.4, '#4a4470');
+    grad.addColorStop(1.0, '#2c3a63');
     sg.fillStyle = grad; sg.fillRect(0, 0, 1024, 512);
-    const glow = sg.createRadialGradient(430, 372, 8, 430, 372, 340);
-    glow.addColorStop(0, 'rgba(255,228,175,0.95)');
-    glow.addColorStop(0.25, 'rgba(255,198,125,0.5)');
+    const glow = sg.createRadialGradient(430, 86, 8, 430, 86, 190);
+    glow.addColorStop(0, 'rgba(255,232,180,0.95)');
+    glow.addColorStop(0.3, 'rgba(255,200,125,0.5)');
     glow.addColorStop(1, 'rgba(255,180,100,0)');
     sg.fillStyle = glow; sg.fillRect(0, 0, 1024, 512);
+    /* thin cloud bands inside the visible strip, lit from below */
+    const brng = mulberry32(31415);
+    for (let i = 0; i < 7; i++) {
+      const y = 14 + brng() * 74, hgt = 2.5 + brng() * 5;
+      const x0 = brng() * 300, len = 380 + brng() * 560;
+      const band = sg.createLinearGradient(x0, 0, x0 + len, 0);
+      band.addColorStop(0, 'rgba(40,32,58,0)');
+      band.addColorStop(0.5, y > 52 ? 'rgba(255,180,130,0.22)' : 'rgba(52,42,74,0.3)');
+      band.addColorStop(1, 'rgba(40,32,58,0)');
+      sg.fillStyle = band;
+      sg.fillRect(x0, y, len, hgt);
+    }
     const skyTex = new THREE.CanvasTexture(sc);
     skyTex.colorSpace = THREE.SRGBColorSpace;
     scene.background = skyTex;
   }
   /* warm haze: the far shore and hills dissolve toward the horizon
      light while the near promenade stays comparatively crisp */
-  scene.fog = new THREE.Fog(0x9a8a80, 40, 112);
+  scene.fog = new THREE.Fog(0xa8846c, 30, 100);
 
   /* image-based ambience from a pocket equirect of the same dusk, so
      glass towers and wet paint reflect a believable sky */
@@ -452,11 +470,13 @@ function buildScene() {
   camera.position.set(17.5, 10.6, 17.5);
   camera.lookAt(0, 1.0, 0);
 
-  /* light rig: the sun has just set behind the hills (warm rim from
-     back-left), a cool violet fill from the camera, dim hemisphere */
-  scene.add(new THREE.HemisphereLight(0x93a7cc, 0x3d3630, 1.2));
-  const sun = new THREE.DirectionalLight(0xffab60, 1.4);
-  sun.position.set(-16, 8.5, -13);
+  /* light rig: the sun has just set behind the hills — a low, warm
+     key raking in from back-left throws long shadows toward the
+     camera and rims the towers, a cool violet fill from the camera
+     side keeps the shadow faces readable, dim warm hemisphere */
+  scene.add(new THREE.HemisphereLight(0x8fa5cf, 0x4a3a2e, 0.85));
+  const sun = new THREE.DirectionalLight(0xffa050, 2.05);
+  sun.position.set(-20, 6.2, -11);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
   sun.shadow.camera.left = -22; sun.shadow.camera.right = 22;
@@ -465,7 +485,7 @@ function buildScene() {
   sun.shadow.bias = -0.0004;
   sun.shadow.normalBias = 0.03;
   scene.add(sun);
-  const fill = new THREE.DirectionalLight(0x8093c8, 0.38);
+  const fill = new THREE.DirectionalLight(0x7d90c0, 0.3);
   fill.position.set(15, 9, 17);
   scene.add(fill);
 
@@ -529,14 +549,13 @@ function buildScene() {
     return s;
   }
 
-  /* dusk clouds: broad soft sprites over the hills, peach-lit below,
-     violet-grey above, thinning into the haze */
+  /* dusk clouds: a few flat, warm-lit banks high over the hills,
+     thin enough that the afterglow still reads between them */
   {
     const cloudTex = puffTexture(4242);
-    const cols = [0xd9a08c, 0xc79a90, 0xb08ea0, 0xe2ac90];
-    [[-14, 9.6, -17, 13, 5.4], [-4, 10.4, -19, 16, 6.2], [6, 9.8, -18, 12, 5.0],
-     [14, 10.8, -16, 13, 5.6], [-9, 11.6, -21, 18, 6.6]].forEach(([x, y, z, sx, sy], i) => {
-      const s = puffSprite(cloudTex, cols[i % 4], sx, sy, 0.3 + (i % 3) * 0.06, i * 0.8);
+    const cols = [0xe6a37e, 0xda8f74, 0xc98a7a];
+    [[-15, 11.9, -20, 11, 3.6], [1, 12.6, -22, 14, 4.0], [14, 12.2, -20, 12, 3.8]].forEach(([x, y, z, sx, sy], i) => {
+      const s = puffSprite(cloudTex, cols[i % 3], sx, sy, 0.3 + (i % 3) * 0.04, i * 0.8);
       s.position.set(x, y, z);
       scene.add(s);
     });
@@ -550,11 +569,12 @@ function buildScene() {
   const wc = document.createElement('canvas'); wc.width = wc.height = 512;
   {
     const g2 = wc.getContext('2d');
-    mottle(g2, 512, '#22709e', [
-      ['#174d73', 0.2, 40, 130, 26],
-      ['#3585b5', 0.17, 30, 100, 22],
-      ['#123a56', 0.15, 50, 150, 18],
-      ['#5ea3cf', 0.1, 16, 50, 24],
+    mottle(g2, 512, '#256f9d', [
+      ['#174d73', 0.18, 40, 130, 26],
+      ['#3585b5', 0.2, 30, 100, 22],
+      ['#1d5f7d', 0.14, 50, 150, 18],
+      ['#5ea3cf', 0.12, 16, 50, 24],
+      ['#2e8f86', 0.08, 24, 80, 14],
     ], bayRng, ['#ffe9c4', 0.18, 260, 2.6]);   // sparse dusk flecks
   }
   const waterTex = new THREE.CanvasTexture(wc);
@@ -608,23 +628,27 @@ function buildScene() {
   const rc = document.createElement('canvas'); rc.width = rc.height = 256;
   {
     const g2 = rc.getContext('2d');
-    mottle(g2, 256, '#bdbdbd', [
-      ['#767676', 0.6, 20, 70, 22],
-      ['#e4e4e4', 0.55, 14, 46, 20],
-      ['#989898', 0.5, 26, 90, 14],
+    mottle(g2, 256, '#8c8c8c', [
+      ['#5a5a5a', 0.55, 20, 70, 22],
+      ['#c2c2c2', 0.5, 14, 46, 20],
+      ['#787878', 0.5, 26, 90, 14],
     ], bayRng, null);
   }
   const waterRgh = new THREE.CanvasTexture(rc);
   waterRgh.wrapS = waterRgh.wrapT = THREE.RepeatWrapping;
   waterRgh.repeat.set(5, 5);
 
-  const water = new THREE.Mesh(new THREE.PlaneGeometry(95, 95),
+  /* the sheet stops just behind the far shore (z=-14.5): beyond it
+     the backdrop's afterglow takes over, so the frame gets a true
+     horizon line instead of dark water running off the top edge */
+  const water = new THREE.Mesh(new THREE.PlaneGeometry(95, 62),
     new THREE.MeshStandardMaterial({
       map: waterTex, color: 0xffffff,
-      normalMap: waterNrm, normalScale: new THREE.Vector2(0.3, 0.3),
-      roughness: 0.88, metalness: 0.0, envMapIntensity: 0.3 }));
+      normalMap: waterNrm, normalScale: new THREE.Vector2(0.72, 0.72),
+      roughnessMap: waterRgh,
+      roughness: 0.6, metalness: 0.0, envMapIntensity: 1.05 }));
   water.rotation.x = -Math.PI / 2;
-  water.position.y = 0.3;
+  water.position.set(0, 0.3, 16.5);
   water.receiveShadow = true;
   scene.add(water);
 
@@ -645,11 +669,32 @@ function buildScene() {
       tg.beginPath(); tg.arc(cx, cy, r, 0, 7); tg.fill();
     };
     for (let x = -24; x <= 24; x += 3.4) {
-      blob(x, 0.4, 5.4, '7,32,58', 0.28);           // deep channel
-      blob(x, -6.4, 3.6, '232,150,84', 0.09);       // skyline reflection
+      blob(x, 0.4, 5.4, '7,32,58', 0.16);           // deep channel
+      blob(x, -6.4, 3.6, '232,150,84', 0.12);       // skyline reflection
       blob(x, 6.6, 3.2, '70,150,150', 0.13);        // near-shore shallows
     }
     blob(2.5, -6.6, 4.4, '255,176,102', 0.15);      // afterglow pool
+    /* individual light streaks: each lit tower and crown throws a
+       broken reflection down the water toward the viewer, the way
+       shore lights smear across a real bay at dusk */
+    const srng = mulberry32(60221023);
+    const streakCols = ['255,190,110', '255,220,160', '190,220,255', '120,230,220', '255,160,190'];
+    for (let i = 0; i < 52; i++) {
+      const wx = -23.5 + srng() * 47;
+      const wLen = 2.4 + srng() * 3.8;
+      const wWid = 0.2 + srng() * 0.45;
+      const col = streakCols[Math.floor(srng() * streakCols.length)];
+      const a0 = 0.1 + srng() * 0.13;
+      const [cx] = px(wx, 0);
+      const [, cyTop] = px(0, -7.7);
+      const [, cyBot] = px(0, -7.7 + wLen);
+      const halfW = wWid / 52 * 1024 / 2;
+      const gr = tg.createLinearGradient(0, cyTop, 0, cyBot);
+      gr.addColorStop(0, `rgba(${col},${a0})`);
+      gr.addColorStop(1, `rgba(${col},0)`);
+      tg.fillStyle = gr;
+      tg.fillRect(cx - halfW, cyTop, halfW * 2, cyBot - cyTop);
+    }
     const tintTex = new THREE.CanvasTexture(tc);
     tintTex.colorSpace = THREE.SRGBColorSpace;
     const tintGeo = new THREE.PlaneGeometry(52, 52);
@@ -672,45 +717,121 @@ function buildScene() {
     gg2.fillStyle = grd; gg2.fillRect(0, 0, 256, 128);
     gg2.globalCompositeOperation = 'destination-out';
     const grng2 = mulberry32(5150);
-    for (let i = 0; i < 320; i++) {
+    for (let i = 0; i < 520; i++) {
       const x = grng2() * 256, y = grng2() * 128, r = 1.5 + grng2() * 9;
       const hole = gg2.createRadialGradient(x, y, 0, x, y, r);
-      hole.addColorStop(0, `rgba(0,0,0,${0.3 + grng2() * 0.5})`);
+      hole.addColorStop(0, `rgba(0,0,0,${0.4 + grng2() * 0.55})`);
       hole.addColorStop(1, 'rgba(0,0,0,0)');
       gg2.fillStyle = hole;
       gg2.beginPath(); gg2.arc(x, y, r, 0, 7); gg2.fill();
     }
     const glintTex = new THREE.CanvasTexture(gc2);
     glintTex.colorSpace = THREE.SRGBColorSpace;
-    const glint = new THREE.Mesh(new THREE.PlaneGeometry(32, 9),
-      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.32,
+    const glint = new THREE.Mesh(new THREE.PlaneGeometry(36, 10.5),
+      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.44,
         blending: THREE.AdditiveBlending, depthWrite: false }));
     glint.rotation.x = -Math.PI / 2;
     glint.rotation.z = 0.18;
-    glint.position.set(-0.5, 0.33, -3.4);
+    glint.position.set(-1.5, 0.33, -3.2);
     glint.renderOrder = 2;
     scene.add(glint);
+    /* a narrower, brighter core where the sun's path crosses the bay */
+    const glintCore = new THREE.Mesh(new THREE.PlaneGeometry(18, 4.5),
+      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.45,
+        blending: THREE.AdditiveBlending, depthWrite: false }));
+    glintCore.rotation.x = -Math.PI / 2;
+    glintCore.rotation.z = 0.18;
+    glintCore.position.set(-2.5, 0.335, -4.2);
+    glintCore.renderOrder = 2;
+    scene.add(glintCore);
   }
 
   /* ---------- shores ---------- */
   const shoreMat = std(0x2e3648, 0.95);
   const shoreTopMat = std(0x4d5a75, 0.9);
-  function shoreSlab(x0, x1, z0, z1, topY) {
+  function shoreSlab(x0, x1, z0, z1, topY, topMat) {
     /* a low land slab: dark cliff sides, a slightly lighter deck */
     const w = x1 - x0, d = z1 - z0;
     const side = box(w, topY, d, shoreMat, (x0 + x1) / 2, topY / 2, (z0 + z1) / 2);
     side.castShadow = false;
-    const deck = new THREE.Mesh(new THREE.PlaneGeometry(w, d), shoreTopMat);
+    const deck = new THREE.Mesh(new THREE.PlaneGeometry(w, d), topMat ?? shoreTopMat);
     deck.rotation.x = -Math.PI / 2;
     deck.position.set((x0 + x1) / 2, topY + 0.01, (z0 + z1) / 2);
     deck.receiveShadow = true;
     scene.add(deck);
     return deck;
   }
+  /* wet stone for the promenade deck: warm dusk-grey slabs with
+     expansion joints and a damp sheen, instead of flat blue paint */
+  const deckMat = (() => {
+    const dc = document.createElement('canvas'); dc.width = 512; dc.height = 256;
+    const dg = dc.getContext('2d');
+    const drng = mulberry32(4451);
+    mottle(dg, 512, '#4e4a48', [
+      ['#3c3835', 0.25, 30, 110, 22],
+      ['#625c56', 0.2, 24, 90, 18],
+      ['#57504a', 0.18, 16, 60, 20],
+    ], drng, ['#8a8078', 0.22, 300, 2.2]);
+    dg.strokeStyle = 'rgba(16,14,12,0.35)'; dg.lineWidth = 2;
+    for (let x = 0; x <= 512; x += 64) { dg.beginPath(); dg.moveTo(x, 0); dg.lineTo(x, 256); dg.stroke(); }
+    dg.beginPath(); dg.moveTo(0, 128); dg.lineTo(512, 128); dg.stroke();
+    const dTex = new THREE.CanvasTexture(dc);
+    dTex.colorSpace = THREE.SRGBColorSpace;
+    dTex.wrapS = dTex.wrapT = THREE.RepeatWrapping;
+    dTex.repeat.set(4, 1);
+    return new THREE.MeshStandardMaterial({ map: dTex, roughness: 0.5,
+      metalness: 0.05, envMapIntensity: 0.6 });
+  })();
   /* far shore: the city bank, running across the back of the bay */
   shoreSlab(-26, 26, -14, -8.2, 0.95);
   /* near shore: a promenade corner in the foreground, flags on it */
-  shoreSlab(-26, 0, 9.0, 15.5, 0.9);
+  shoreSlab(-26, 0, 9.0, 15.5, 0.9, deckMat);
+
+  /* grounding the promenade: a riprap embankment sloping from the
+     deck edge down into the water, a pale waterline where the bay
+     laps it, a railing and mooring bollards along the edge — the
+     details that stop a slab reading as a floating card */
+  {
+    const rc2 = document.createElement('canvas'); rc2.width = rc2.height = 256;
+    const rg2 = rc2.getContext('2d');
+    mottle(rg2, 256, '#2c2f36', [
+      ['#1d2026', 0.3, 14, 50, 30],
+      ['#454b55', 0.22, 10, 36, 30],
+      ['#59616c', 0.12, 6, 20, 22],
+    ], mulberry32(902), ['#9aa4ae', 0.3, 380, 2.4]);
+    const rockTex = new THREE.CanvasTexture(rc2);
+    rockTex.colorSpace = THREE.SRGBColorSpace;
+    rockTex.wrapS = rockTex.wrapT = THREE.RepeatWrapping;
+    rockTex.repeat.set(9, 1);
+    const bank = new THREE.Mesh(new THREE.BoxGeometry(26.4, 0.16, 1.9),
+      new THREE.MeshStandardMaterial({ map: rockTex, roughness: 1.0 }));
+    bank.rotation.x = 0.62;
+    bank.position.set(-13, 0.52, 8.62);
+    bank.receiveShadow = true;
+    scene.add(bank);
+    const foamTex = glowTexture('rgba(235,245,255,0.8)', 'rgba(235,245,255,0)');
+    const foam = new THREE.Mesh(new THREE.PlaneGeometry(26.4, 0.55),
+      new THREE.MeshBasicMaterial({ map: foamTex, transparent: true, opacity: 0.16,
+        blending: THREE.AdditiveBlending, depthWrite: false }));
+    foam.rotation.x = -Math.PI / 2;
+    foam.position.set(-13, 0.325, 7.95);
+    foam.renderOrder = 2;
+    scene.add(foam);
+    const railMat = std(0x1e222a, 0.5, 0.6);
+    for (let x = -25.5; x <= -0.6; x += 1.55) {
+      const post = cyl(0.03, 0.03, 0.55, railMat, x, 1.18, 9.18);
+      post.castShadow = false;
+    }
+    const railTop = box(25.2, 0.05, 0.05, railMat, -13, 1.47, 9.18);
+    railTop.castShadow = false;
+    const railMid = box(25.2, 0.04, 0.04, railMat, -13, 1.2, 9.18);
+    railMid.castShadow = false;
+    const bolMat = std(0x232830, 0.55, 0.5);
+    for (let x = -24; x <= -4; x += 4) {
+      const bol = cyl(0.085, 0.1, 0.3, bolMat, x, 1.05, 9.5);
+      bol.castShadow = false;
+    }
+  }
 
   /* promenade lamp-light strips along both waterfronts */
   const lampStripMat = new THREE.MeshBasicMaterial({ color: 0xffc98a });
@@ -723,11 +844,14 @@ function buildScene() {
   lampStrip(-25, 25, -8.4, 1.0);
   lampStrip(-25, -1, 9.25, 0.95);
 
-  /* hills behind the skyline — dark ridges dissolving into haze */
-  const hillMat = std(0x272f47, 1.0);
-  [[-13, -20, 17, 6.0], [2, -22, 21, 7.4], [15, -19.5, 15, 5.2]].forEach(([x, z, w, h]) => {
-    const hill = new THREE.Mesh(new THREE.ConeGeometry(w / 2, h, 7), hillMat);
-    hill.position.set(x, h / 2 - 0.4, z);
+  /* hills behind the skyline — low hazy mauve ridges dissolving
+     into the afterglow: smooth half-buried domes, so their
+     silhouettes read as distant shoreline hills, not faceted cones */
+  const hillMat = std(0x46406a, 1.0);
+  [[-13, -21, 15, 3.4], [2, -23, 19, 4.2], [15, -20.5, 13, 3.0]].forEach(([x, z, w, h]) => {
+    const hill = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), hillMat);
+    hill.scale.set(w / 2, h, w / 4);
+    hill.position.set(x, -0.4, z);
     hill.castShadow = false; hill.receiveShadow = false;
     scene.add(hill);
   });
@@ -736,7 +860,7 @@ function buildScene() {
   function windowTexture(seed, litRatio, warm) {
     const c = document.createElement('canvas'); c.width = 64; c.height = 128;
     const g = c.getContext('2d');
-    g.fillStyle = '#12151f'; g.fillRect(0, 0, 64, 128);
+    g.fillStyle = '#171d2c'; g.fillRect(0, 0, 64, 128);
     const rng = mulberry32(seed);
     for (let row = 0; row < 21; row++) for (let col = 0; col < 6; col++) {
       const x = 4 + col * 10, y = 5 + row * 6;
@@ -747,7 +871,7 @@ function buildScene() {
           : (t < 0.55 ? '#ffd9a0' : '#bcd8ff');
         g.globalAlpha = 0.55 + rng() * 0.45;
       } else {
-        g.fillStyle = '#232a3d'; g.globalAlpha = 0.8;
+        g.fillStyle = '#2a3350'; g.globalAlpha = 0.8;
       }
       g.fillRect(x, y, 6, 3.6);
     }
@@ -758,11 +882,17 @@ function buildScene() {
   }
   const towerMats = [];
   for (let i = 0; i < 5; i++) {
-    const tex = windowTexture(3100 + i * 77, 0.42 + i * 0.05, i % 2 === 0);
+    const tex = windowTexture(3100 + i * 77, 0.5 + i * 0.04, i % 2 === 0);
     towerMats.push(new THREE.MeshStandardMaterial({
       color: 0x8d97ad, roughness: 0.42, metalness: 0.35,
       emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.85, map: tex }));
   }
+  /* sheer-glass variants: no window paint, just a polished skin that
+     mirrors the dusk sky — amber toward the sun, blue in shadow */
+  const glassMats = [0x8ea3c4, 0x9db0cc, 0x7e97ba].map(c => new THREE.MeshStandardMaterial({
+    color: c, roughness: 0.16, metalness: 0.65, envMapIntensity: 1.05 }));
+  const roofMat = std(0x11141d, 0.9);
+  const frng = mulberry32(778);   // finish-pass rng: placements never shift
   const crownCols = [0x37e0d8, 0xffb54d, 0xff5f9e, 0x9fd8ff, 0xffe9bb];
   {
     const rng = mulberry32(777);
@@ -779,6 +909,20 @@ function buildScene() {
       const mat = towerMats[Math.floor(rng() * towerMats.length)];
       const t = box(w, h, d, mat, x, 0.95 + h / 2, z);
       t.castShadow = false;
+      /* finish pass, drawn from frng so the placements above are
+         untouched: some towers swap to sheer glass, most grow a
+         rooftop plant silhouette, the tallest carry a beacon */
+      if (frng() < 0.3) t.material = glassMats[Math.floor(frng() * glassMats.length)];
+      if (frng() < 0.5) {
+        const rw = w * (0.24 + frng() * 0.2), rh = 0.16 + frng() * 0.22;
+        const plant = box(rw, rh, rw, roofMat, x + (frng() - 0.5) * w * 0.4, 0.95 + h + rh / 2, z);
+        plant.castShadow = false;
+      }
+      if (h > 7.0) {
+        const bc = glowSprite(warmGlowTex, 0.55, 0.8);
+        bc.position.set(x, 0.95 + h + 0.35, z);
+        scene.add(bc);
+      }
       if (rng() < 0.4) {                                   // coloured crown light
         const crown = new THREE.Mesh(new THREE.BoxGeometry(w * 0.7, 0.14, d * 0.7),
           new THREE.MeshBasicMaterial({ color: crownCols[Math.floor(rng() * crownCols.length)] }));
@@ -857,11 +1001,20 @@ function buildScene() {
   /* lamps along the near promenade */
   {
     const poleMat = std(0x22262e, 0.6, 0.4);
+    const poolTex = glowTexture('rgba(255,205,130,0.85)', 'rgba(255,150,60,0)');
     for (let x = -23; x <= -2; x += 4.2) {
       cyl(0.035, 0.045, 1.5, poleMat, x, 1.65, 9.45);
       const lamp = glowSprite(warmGlowTex, 0.85, 0.75);
       lamp.position.set(x, 2.45, 9.45);
       scene.add(lamp);
+      /* each lamp spills a pool of light across the wet stone */
+      const pool = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 3.4),
+        new THREE.MeshBasicMaterial({ map: poolTex, transparent: true, opacity: 0.34,
+          blending: THREE.AdditiveBlending, depthWrite: false }));
+      pool.rotation.x = -Math.PI / 2;
+      pool.position.set(x, 0.925, 10.9);
+      pool.renderOrder = 2;
+      scene.add(pool);
     }
   }
 
