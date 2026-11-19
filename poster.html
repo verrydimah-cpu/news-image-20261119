@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The World in One Picture — Thursday 19 November 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1024px; height: 1024px; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #e9dfc6;
+    color: #141f16;
+  }
+  .poster {
+    width: 1024px; height: 1024px;
+    padding: 18px 24px 14px;
+    display: flex; flex-direction: column;
+    background:
+      radial-gradient(1150px 620px at 50% -60px, #fbf6e8 0%, #f4edd9 55%, #ede2c8 100%);
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead { text-align: center; border-bottom: 7px double #1c2a1e; padding-bottom: 8px; }
+  .kicker {
+    font-size: 15px; font-weight: 800; letter-spacing: 8px; color: #1d6a4a;
+  }
+  .date {
+    margin-top: 3px;
+    font-size: 50px; font-weight: 900; letter-spacing: .5px; line-height: 1.04;
+    text-shadow: 0 2px 0 rgba(20,31,22,.14);
+  }
+  .date .red { color: #c22f24; }
+
+  /* ---------- hero (3D diorama) ---------- */
+  .hero {
+    margin-top: 10px;
+    border: 3px solid #1c2a1e;
+    background: #0a1626;
+    box-shadow: 0 16px 30px rgba(20,31,22,.38), 0 4px 0 rgba(20,31,22,.25);
+  }
+  .hero-art {
+    position: relative; height: 246px; overflow: hidden;
+    background: linear-gradient(180deg, #2c3a63 0%, #b06a4e 55%, #26343e 100%);
+  }
+  .hero-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+    filter: blur(0.5px) saturate(1.05) contrast(1.01); }
+  .hero-art .grain {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    opacity: .34; mix-blend-mode: overlay; background-repeat: repeat;
+  }
+  .hero-art .grade {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(255,170,110,.10) 0%, rgba(255,170,110,0) 36%),
+      radial-gradient(125% 95% at 50% 42%, rgba(0,0,0,0) 54%, rgba(8,12,20,.38) 100%);
+  }
+  .hero-art svg.leaders { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; }
+  .chip {
+    position: absolute; z-index: 3;
+    background: rgba(8,18,28,.86); color: #fff;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.6px;
+    padding: 3px 8px 2px; border: 1px solid rgba(255,255,255,.42); border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.45); white-space: nowrap;
+  }
+  .chip.gold { background: rgba(146,102,16,.92); border-color: rgba(255,255,255,.5); }
+  #chipCity { top: 5%; left: 33%; }
+  #chipSummit { top: 4%; left: 56%; }
+  #chipFlags { bottom: 5%; left: 30%; }
+  .hero-caption {
+    background: linear-gradient(#fbf6e8, #f3ecd7);
+    border-top: 3px solid #1c2a1e;
+    padding: 8px 18px 10px;
+  }
+  .hero-headline { font-size: 41px; font-weight: 900; line-height: 1.02; letter-spacing: .2px; }
+  .hero-headline .red { color: #c22f24; }
+  .hero-sub { margin-top: 4px; font-size: 16.5px; line-height: 1.33; color: #2b3644; }
+
+  /* ---------- panels ---------- */
+  .row { display: grid; gap: 11px; margin-top: 10px; grid-template-columns: 1fr 1fr 1fr; }
+  .panel {
+    background: linear-gradient(#fffdf7, #f8f0da);
+    border: 2.5px solid #1c2a1e;
+    box-shadow: 7px 9px 0 rgba(20,31,22,.16), 0 10px 18px rgba(20,31,22,.12);
+    padding: 10px 13px 9px;
+    overflow: hidden;
+  }
+  .row.r1 .panel { height: 208px; }
+  .row.r2 .panel { height: 198px; }
+  .tag {
+    display: inline-block; color: #fff;
+    font-size: 11.5px; font-weight: 800; letter-spacing: 1.8px;
+    padding: 4px 9px 3px; border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(20,31,22,.25);
+  }
+  .panel h3 { font-size: 21.5px; font-weight: 900; line-height: 1.08; margin: 6px 0 5px; }
+  .panel p { font-size: 15px; line-height: 1.3; color: #2e3947; }
+  .icon { float: right; margin: 2px 0 4px 10px; }
+
+  /* ---------- ticker ---------- */
+  .ticker {
+    margin-top: 10px;
+    background: linear-gradient(#20392c, #16281e);
+    color: #f5efdc;
+    border: 2.5px solid #0d1a12;
+    box-shadow: 7px 9px 0 rgba(20,31,22,.16);
+    padding: 9px 16px;
+    font-size: 15.5px; font-weight: 700; line-height: 1.42; letter-spacing: .3px;
+  }
+  .ticker .also { color: #ffb54d; letter-spacing: 2px; }
+  .ticker .dot { color: #e0564b; }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <header class="masthead">
+    <div class="kicker">THE WORLD IN ONE PICTURE</div>
+    <div class="date">THURSDAY <span class="red">19 NOVEMBER</span> 2026</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-art" id="heroArt">
+      <canvas id="gl"></canvas>
+      <div class="grain" id="grain"></div>
+      <div class="grade"></div>
+      <svg class="leaders" viewBox="0 0 970 246" preserveAspectRatio="none" aria-hidden="true">
+        <g stroke="#ffffff" stroke-width="1.5" opacity="0.85">
+          <line id="lnCity" x1="372" y1="28" x2="424" y2="64"/>
+          <line id="lnSummit" x1="640" y1="22" x2="600" y2="52"/>
+          <line id="lnFlags" x1="355" y1="206" x2="340" y2="170"/>
+        </g>
+        <g fill="#ffffff">
+          <circle id="dtCity" cx="424" cy="64" r="3"/>
+          <circle id="dtSummit" cx="600" cy="52" r="3"/>
+          <circle id="dtFlags" cx="340" cy="170" r="3"/>
+        </g>
+      </svg>
+      <div class="chip" id="chipCity">SHENZHEN</div>
+      <div class="chip gold" id="chipSummit">APEC SUMMIT</div>
+      <div class="chip" id="chipFlags">TRUMP · XI · PUTIN</div>
+    </div>
+    <div class="hero-caption">
+      <div class="hero-headline">THREE PRESIDENTS, <span class="red">ONE TABLE</span></div>
+      <p class="hero-sub">Trump, Xi and Putin meet face to face at the APEC summit in Shenzhen — a first for
+      modern diplomacy — signing a joint “peace declaration” and promising U.N. and I.C.C. reform.
+      The Ukraine and Iran wars top the agenda.</p>
+    </div>
+  </section>
+
+  <div class="row r1">
+    <article class="panel">
+      <svg class="icon" width="104" height="74" viewBox="0 0 120 84">
+        <!-- strait water -->
+        <polygon points="4,58 116,58 116,80 4,80" fill="#2e6ea6"/>
+        <polygon points="4,58 116,58 116,63 4,63" fill="#5ea3cf"/>
+        <!-- standing deck, left -->
+        <polygon points="4,36 58,30 58,36 4,42" fill="#66727e"/>
+        <polygon points="4,42 58,36 58,41 4,47" fill="#454f59"/>
+        <!-- pylon -->
+        <polygon points="26,12 33,11 33,36 26,37" fill="#87939e"/>
+        <polygon points="47,9 54,8 54,33 47,34" fill="#87939e"/>
+        <!-- cables -->
+        <path d="M29 13 L8 35 M50 10 L14 33 M29 13 L52 31 M50 10 L57 29" stroke="#39434d" stroke-width="1.6"/>
+        <!-- broken span, tilted into the sea -->
+        <polygon points="58,33 92,46 89,53 58,40" fill="#5b6773"/>
+        <polygon points="89,53 92,46 99,60 95,68" fill="#414b55"/>
+        <!-- burst at the break -->
+        <polygon points="64,14 68,23 77,21 71,28 78,34 68,34 65,42 61,34 52,34 58,28 53,21 61,23" fill="#f39c2c"/>
+        <polygon points="64,21 67,26 72,26 68,30 70,35 65,32 60,35 62,30 58,26 63,26" fill="#ffd94d"/>
+        <!-- splash -->
+        <path d="M84 64 q4 -7 8 0 M96 66 q4 -6 7 0" stroke="#dff2ff" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="tag" style="background:#2e5fa3">UKRAINE · WAR</span>
+      <h3>CRIMEAN BRIDGE HIT A THIRD TIME</h3>
+      <p>A span partially collapses in what Zelensky calls an “unprecedented” seven-stage strike — the third attack on the bridge this week.</p>
+    </article>
+
+    <article class="panel">
+      <svg class="icon" width="104" height="74" viewBox="0 0 120 84">
+        <!-- courthouse: pediment, columns, steps -->
+        <polygon points="60,4 112,22 8,22" fill="#44536b"/>
+        <circle cx="60" cy="15" r="4" fill="#e8b64c"/>
+        <rect x="10" y="24" width="100" height="4" fill="#5b6b82"/>
+        <g fill="#71809a">
+          <rect x="16" y="30" width="9" height="34"/>
+          <rect x="38" y="30" width="9" height="34"/>
+          <rect x="60" y="30" width="9" height="34" transform="translate(-4.5,0)"/>
+          <rect x="82" y="30" width="9" height="34"/>
+          <rect x="100" y="30" width="9" height="34" transform="translate(-5,0)"/>
+        </g>
+        <rect x="10" y="66" width="100" height="4" fill="#5b6b82"/>
+        <rect x="6" y="72" width="108" height="4" fill="#44536b"/>
+        <!-- scales of justice -->
+        <rect x="57" y="34" width="3" height="22" fill="#8a6b1f"/>
+        <rect x="42" y="37" width="33" height="2.6" fill="#8a6b1f"/>
+        <path d="M42 39 L36 50 L48 50 Z" fill="#c9932f"/>
+        <path d="M75 39 L69 50 L81 50 Z" fill="#c9932f"/>
+        <rect x="50" y="56" width="17" height="3" fill="#8a6b1f"/>
+      </svg>
+      <span class="tag" style="background:#44536b">WORLD COURT · THE HAGUE</span>
+      <h3>MYANMAR GUILTY OF GENOCIDE</h3>
+      <p>The I.C.J. rules Myanmar committed state-sponsored genocide against the Rohingya — the first ruling of its kind by the world court.</p>
+    </article>
+
+    <article class="panel">
+      <svg class="icon" width="104" height="74" viewBox="0 0 120 84">
+        <!-- sky -->
+        <rect x="0" y="0" width="120" height="84" fill="#f3e3c2"/>
+        <!-- PIF-style tower -->
+        <polygon points="52,80 60,18 68,80" fill="#7d8ca3"/>
+        <polygon points="60,18 68,80 63,80 59,26" fill="#5b6b82"/>
+        <polygon points="57,34 63,34 62.4,42 57.6,42" fill="#ffd94d"/>
+        <polygon points="56.4,50 63.6,50 63,58 57,58" fill="#ffd94d"/>
+        <!-- missile arc -->
+        <path d="M6 12 Q 40 2 54 22" stroke="#c2432b" stroke-width="2.6" fill="none" stroke-dasharray="5 4"/>
+        <polygon points="54,22 46,20 51,28" fill="#8a2c1c"/>
+        <!-- burst on the tower -->
+        <polygon points="66,26 69,33 77,31 72,37 78,43 69,42 66,50 62,42 54,42 60,37 55,31 63,33" fill="#f39c2c"/>
+        <polygon points="66,33 68,37 73,37 69,40 71,45 66,42 61,45 63,40 59,37 64,37" fill="#ffd94d"/>
+        <!-- ground blocks -->
+        <rect x="6" y="66" width="26" height="14" fill="#a8906a"/>
+        <rect x="88" y="62" width="28" height="18" fill="#97835e"/>
+        <rect x="0" y="78" width="120" height="6" fill="#6e5c3e"/>
+      </svg>
+      <span class="tag" style="background:#b3352b">IRAN · WAR WIDENS</span>
+      <h3>IRAN WAR WIDENS AGAIN</h3>
+      <p>Trump warns he will “wipe them out” over an alleged dirty-bomb plot; Iran fires on Kuwait; a Houthi missile damages Riyadh’s PIF Tower.</p>
+    </article>
+  </div>
+
+  <div class="row r2">
+    <article class="panel">
+      <svg class="icon" width="104" height="74" viewBox="0 0 120 84">
+        <!-- hospital block -->
+        <rect x="66" y="14" width="46" height="52" fill="#e8e2d2"/>
+        <rect x="66" y="14" width="46" height="8" fill="#b8b09a"/>
+        <g fill="#7d94a8">
+          <rect x="72" y="28" width="8" height="8"/><rect x="86" y="28" width="8" height="8"/><rect x="100" y="28" width="8" height="8"/>
+          <rect x="72" y="42" width="8" height="8"/><rect x="100" y="42" width="8" height="8"/>
+        </g>
+        <!-- red cross -->
+        <rect x="85" y="40" width="8" height="16" fill="#c22f24"/>
+        <rect x="81" y="44" width="16" height="8" fill="#c22f24"/>
+        <!-- tank silhouette -->
+        <polygon points="6,66 44,66 50,74 6,74" fill="#4a5548"/>
+        <polygon points="12,58 38,58 44,66 6,66" fill="#55634f"/>
+        <rect x="20" y="50" width="18" height="9" rx="3" fill="#4a5548"/>
+        <rect x="36" y="53" width="26" height="4" fill="#39423a"/>
+        <g fill="#2e362e">
+          <circle cx="13" cy="75" r="4"/><circle cx="24" cy="75" r="4"/><circle cx="35" cy="75" r="4"/><circle cx="45" cy="75" r="4"/>
+        </g>
+        <!-- dust -->
+        <circle cx="8" cy="58" r="5" fill="#cbbfa4" opacity=".65"/>
+        <circle cx="16" cy="52" r="3.4" fill="#cbbfa4" opacity=".55"/>
+      </svg>
+      <span class="tag" style="background:#5a6e46">GAZA</span>
+      <h3>TANKS PUSH INTO CENTRAL GAZA</h3>
+      <p>Israeli tanks advance beyond the ceasefire line; a strike on Nasser Hospital kills six people, including a surgeon.</p>
+    </article>
+
+    <article class="panel">
+      <svg class="icon" width="104" height="74" viewBox="0 0 120 84">
+        <!-- neon night -->
+        <rect x="0" y="0" width="120" height="84" fill="#160a26"/>
+        <!-- skyline -->
+        <g fill="#241040">
+          <rect x="2" y="34" width="14" height="46"/><rect x="19" y="24" width="11" height="56"/>
+          <rect x="88" y="28" width="13" height="52"/><rect x="104" y="38" width="14" height="42"/>
+        </g>
+        <g fill="#ffd94d">
+          <rect x="5" y="40" width="3" height="3"/><rect x="10" y="48" width="3" height="3"/><rect x="22" y="32" width="3" height="3"/>
+          <rect x="91" y="36" width="3" height="3"/><rect x="96" y="46" width="3" height="3"/><rect x="108" y="46" width="3" height="3"/>
+        </g>
+        <!-- palm -->
+        <path d="M14 80 Q 16 62 13 50" stroke="#0f2c1e" stroke-width="4" fill="none"/>
+        <path d="M13 50 Q 4 42 -2 46 M13 50 Q 12 40 6 36 M13 50 Q 20 40 27 44 M13 50 Q 22 48 28 52" stroke="#14532d" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <!-- neon VI -->
+        <text x="60" y="62" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="40" font-weight="900" fill="#ff2e88" stroke="#ff7ac0" stroke-width="1">VI</text>
+        <text x="60" y="76" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" letter-spacing="1.6" fill="#37e0d8">GRAND THEFT AUTO</text>
+      </svg>
+      <span class="tag" style="background:#a1125c">GAMES</span>
+      <h3>GTA VI IS FINALLY HERE</h3>
+      <p>Midnight queues snake around stores worldwide as the most anticipated game of the decade finally goes on sale.</p>
+    </article>
+
+    <article class="panel">
+      <svg class="icon" width="104" height="74" viewBox="0 0 120 84">
+        <!-- rising bars -->
+        <g>
+          <rect x="10" y="56" width="16" height="20" fill="#7d94a8"/>
+          <rect x="34" y="46" width="16" height="30" fill="#5b84a8"/>
+          <rect x="58" y="34" width="16" height="42" fill="#2e6ea6"/>
+          <rect x="82" y="18" width="16" height="58" fill="#c9932f"/>
+        </g>
+        <!-- trend arrow -->
+        <path d="M8 52 L38 40 L60 28 L96 8" stroke="#b3352b" stroke-width="3.4" fill="none"/>
+        <polygon points="96,8 86,9 93,17" fill="#b3352b"/>
+        <!-- coin -->
+        <circle cx="24" cy="18" r="11" fill="#e8b64c" stroke="#a87824" stroke-width="2"/>
+        <text x="24" y="23" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="900" fill="#7a5410">$</text>
+        <!-- axis -->
+        <rect x="4" y="76" width="112" height="2.6" fill="#39434d"/>
+      </svg>
+      <span class="tag" style="background:#92620e">MARKETS · TECH</span>
+      <h3>ANTHROPIC’S RECORD $81.3BN IPO</h3>
+      <p>An $81.3 billion raise at a $1.5 trillion valuation makes Anthropic’s market debut the largest IPO ever.</p>
+    </article>
+  </div>
+
+  <footer class="ticker">
+    <span class="also">ALSO TODAY</span> — DENMARK, GREENLAND &amp; U.S. AGREE ARCTIC SECURITY PACT, APPROVED UNANIMOUSLY <span class="dot">•</span> COP31 TALKS ENTER FINAL STAGE WITH FOSSIL-FUEL LANGUAGE UNRESOLVED <span class="dot">•</span> FIJI DECLARES NATIONAL DISASTER OVER EL NIÑO DROUGHT <span class="dot">•</span> 589 MILLION CHILDREN NOW LIVE IN CONFLICT ZONES, SAYS SAVE THE CHILDREN <span class="dot">•</span> LPG TANKER GAS HUSKY SINKS OFF BULGARIA AFTER PROJECTILE STRIKES
+  </footer>
+
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+try { buildScene(); } catch (err) { console.error(err); window.__sceneError = String(err); window.__sceneReady = true; }
+
+function buildScene() {
+  const art = document.getElementById('heroArt');
+  const canvas = document.getElementById('gl');
+  const W = art.clientWidth, H = art.clientHeight;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(2);
+  renderer.setSize(W, H, false);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  /* dusk grade: filmic curve, exposure held a touch lower than a noon
+     scene so the lit windows and headlight glows carry the frame */
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.12;
+
+  const scene = new THREE.Scene();
+
+  /* ---------- seeded randomness + canvas paint helpers ---------- */
+  function mulberry32(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function rgba(hex, a) {
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+  }
+  /* mottled paint: flat base, soft radial patches, optional speckle —
+     keeps big procedural surfaces from reading as flat digital colour */
+  function mottle(ctx, size, base, patches, rng, speckle) {
+    ctx.fillStyle = base; ctx.fillRect(0, 0, size, size);
+    for (const [color, alpha, rMin, rMax, count] of patches) {
+      for (let i = 0; i < count; i++) {
+        const x = rng() * size, y = rng() * size, r = rMin + rng() * (rMax - rMin);
+        const gr = ctx.createRadialGradient(x, y, 0, x, y, r);
+        gr.addColorStop(0, rgba(color, alpha));
+        gr.addColorStop(1, rgba(color, 0));
+        ctx.fillStyle = gr;
+        ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
+      }
+    }
+    if (speckle) {
+      const [sColor, sAlpha, sCount, sLen] = speckle;
+      ctx.strokeStyle = rgba(sColor, sAlpha); ctx.lineWidth = 1;
+      for (let i = 0; i < sCount; i++) {
+        const x = rng() * size, y = rng() * size, a = rng() * Math.PI;
+        ctx.beginPath(); ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(a) * sLen, y + Math.sin(a) * sLen); ctx.stroke();
+      }
+    }
+  }
+  function std(color, roughness = 0.75, metalness = 0.05) {
+    return new THREE.MeshStandardMaterial({ color, roughness, metalness });
+  }
+  function box(w, h, d, mat, x, y, z, parent) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+    m.position.set(x, y, z);
+    m.castShadow = true; m.receiveShadow = true;
+    (parent ?? scene).add(m);
+    return m;
+  }
+  function cyl(rt, rb, h, mat, x, y, z, parent) {
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, 10), mat);
+    m.position.set(x, y, z);
+    m.castShadow = true;
+    (parent ?? scene).add(m);
+    return m;
+  }
+
+  /* ---------- dusk sky: indigo zenith melting to an amber horizon,
+     with the sun's afterglow pooled over the bay ---------- */
+  {
+    const sc = document.createElement('canvas'); sc.width = 1024; sc.height = 512;
+    const sg = sc.getContext('2d');
+    const grad = sg.createLinearGradient(0, 0, 0, 512);
+    grad.addColorStop(0.0, '#232c52');
+    grad.addColorStop(0.34, '#4a4470');
+    grad.addColorStop(0.55, '#96607a');
+    grad.addColorStop(0.68, '#e08a5c');
+    grad.addColorStop(0.78, '#f4b878');
+    grad.addColorStop(1.0, '#7a5a48');
+    sg.fillStyle = grad; sg.fillRect(0, 0, 1024, 512);
+    const glow = sg.createRadialGradient(430, 372, 8, 430, 372, 340);
+    glow.addColorStop(0, 'rgba(255,228,175,0.95)');
+    glow.addColorStop(0.25, 'rgba(255,198,125,0.5)');
+    glow.addColorStop(1, 'rgba(255,180,100,0)');
+    sg.fillStyle = glow; sg.fillRect(0, 0, 1024, 512);
+    const skyTex = new THREE.CanvasTexture(sc);
+    skyTex.colorSpace = THREE.SRGBColorSpace;
+    scene.background = skyTex;
+  }
+  /* warm haze: the far shore and hills dissolve toward the horizon
+     light while the near promenade stays comparatively crisp */
+  scene.fog = new THREE.Fog(0x9a8a80, 40, 112);
+
+  /* image-based ambience from a pocket equirect of the same dusk, so
+     glass towers and wet paint reflect a believable sky */
+  {
+    const ec = document.createElement('canvas'); ec.width = 512; ec.height = 256;
+    const eg = ec.getContext('2d');
+    const grad = eg.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, '#2c3560');
+    grad.addColorStop(0.44, '#6a7aa8');
+    grad.addColorStop(0.56, '#f0b478');
+    grad.addColorStop(0.64, '#c98f66');
+    grad.addColorStop(1, '#1d2733');
+    eg.fillStyle = grad; eg.fillRect(0, 0, 512, 256);
+    const blob = eg.createRadialGradient(215, 140, 2, 215, 140, 62);
+    blob.addColorStop(0, 'rgba(255,242,205,1)');
+    blob.addColorStop(1, 'rgba(255,220,160,0)');
+    eg.fillStyle = blob; eg.fillRect(0, 0, 512, 256);
+    const eqTex = new THREE.CanvasTexture(ec);
+    eqTex.mapping = THREE.EquirectangularReflectionMapping;
+    eqTex.colorSpace = THREE.SRGBColorSpace;
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromEquirectangular(eqTex).texture;
+    eqTex.dispose(); pmrem.dispose();
+  }
+
+  const aspect = W / H;
+  const viewSize = 15.8;
+  const camera = new THREE.OrthographicCamera(
+    -viewSize * aspect / 2, viewSize * aspect / 2, viewSize / 2, -viewSize / 2, 0.1, 240);
+  camera.position.set(17.5, 10.6, 17.5);
+  camera.lookAt(0, 1.0, 0);
+
+  /* light rig: the sun has just set behind the hills (warm rim from
+     back-left), a cool violet fill from the camera, dim hemisphere */
+  scene.add(new THREE.HemisphereLight(0x93a7cc, 0x3d3630, 1.2));
+  const sun = new THREE.DirectionalLight(0xffab60, 1.4);
+  sun.position.set(-16, 8.5, -13);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.left = -22; sun.shadow.camera.right = 22;
+  sun.shadow.camera.top = 22; sun.shadow.camera.bottom = -22;
+  sun.shadow.camera.far = 95;
+  sun.shadow.bias = -0.0004;
+  sun.shadow.normalBias = 0.03;
+  scene.add(sun);
+  const fill = new THREE.DirectionalLight(0x8093c8, 0.38);
+  fill.position.set(15, 9, 17);
+  scene.add(fill);
+
+  /* sensor grain, hero only: a seeded neutral noise tile in overlay
+     blend — the texture of a camera sensor at dusk, kept off the
+     typeset page around it. Seeded, so renders are byte-identical. */
+  {
+    const gc = document.createElement('canvas'); gc.width = gc.height = 256;
+    const gg = gc.getContext('2d');
+    const img = gg.createImageData(256, 256);
+    const grng = mulberry32(90210);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = 114 + Math.floor(grng() * 84);
+      img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+      img.data[i + 3] = 255;
+    }
+    gg.putImageData(img, 0, 0);
+    document.getElementById('grain').style.backgroundImage = `url(${gc.toDataURL()})`;
+  }
+
+  /* soft radial glow sprite texture (lamps, headlights, beacons) */
+  function glowTexture(inner, outer) {
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const g = c.getContext('2d');
+    const grad = g.createRadialGradient(64, 64, 4, 64, 64, 64);
+    grad.addColorStop(0, inner); grad.addColorStop(1, outer);
+    g.fillStyle = grad; g.fillRect(0, 0, 128, 128);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  }
+  const warmGlowTex = glowTexture('rgba(255,205,130,0.9)', 'rgba(255,150,60,0)');
+  const coolGlowTex = glowTexture('rgba(210,230,255,0.9)', 'rgba(140,180,255,0)');
+  function glowSprite(tex, scale, opacity) {
+    const m = new THREE.SpriteMaterial({ map: tex, transparent: true, opacity,
+      blending: THREE.AdditiveBlending, depthWrite: false });
+    const s = new THREE.Sprite(m); s.scale.set(scale, scale, 1);
+    return s;
+  }
+
+  /* billowy puff texture for dusk clouds */
+  function puffTexture(seed) {
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const g = c.getContext('2d');
+    const rng = mulberry32(seed);
+    for (let i = 0; i < 26; i++) {
+      const x = 28 + rng() * 72, y = 34 + rng() * 60, r = 12 + rng() * 27;
+      const tone = 0.7 + rng() * 0.3;
+      const gr = g.createRadialGradient(x, y, 0, x, y, r);
+      gr.addColorStop(0, `rgba(255,255,255,${0.4 * tone})`);
+      gr.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = gr;
+      g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+    }
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  }
+  function puffSprite(tex, color, sx, sy, opacity, rotation) {
+    const m = new THREE.SpriteMaterial({ map: tex, color, transparent: true,
+      opacity, rotation, depthWrite: false });
+    const s = new THREE.Sprite(m); s.scale.set(sx, sy, 1);
+    return s;
+  }
+
+  /* dusk clouds: broad soft sprites over the hills, peach-lit below,
+     violet-grey above, thinning into the haze */
+  {
+    const cloudTex = puffTexture(4242);
+    const cols = [0xd9a08c, 0xc79a90, 0xb08ea0, 0xe2ac90];
+    [[-14, 9.6, -17, 13, 5.4], [-4, 10.4, -19, 16, 6.2], [6, 9.8, -18, 12, 5.0],
+     [14, 10.8, -16, 13, 5.6], [-9, 11.6, -21, 18, 6.6]].forEach(([x, y, z, sx, sy], i) => {
+      const s = puffSprite(cloudTex, cols[i % 4], sx, sy, 0.3 + (i % 3) * 0.06, i * 0.8);
+      s.position.set(x, y, z);
+      scene.add(s);
+    });
+  }
+
+  /* ---------- the bay: procedural water with broken dusk glint ------
+     Colour, normal and roughness maps are painted from seeded noise;
+     a value-noise heightfield drives the normals so the afterglow
+     shatters into sparkle instead of smearing across a flat card. */
+  const bayRng = mulberry32(20261119);
+  const wc = document.createElement('canvas'); wc.width = wc.height = 512;
+  {
+    const g2 = wc.getContext('2d');
+    mottle(g2, 512, '#22709e', [
+      ['#174d73', 0.2, 40, 130, 26],
+      ['#3585b5', 0.17, 30, 100, 22],
+      ['#123a56', 0.15, 50, 150, 18],
+      ['#5ea3cf', 0.1, 16, 50, 24],
+    ], bayRng, ['#ffe9c4', 0.18, 260, 2.6]);   // sparse dusk flecks
+  }
+  const waterTex = new THREE.CanvasTexture(wc);
+  waterTex.colorSpace = THREE.SRGBColorSpace;
+  waterTex.wrapS = waterTex.wrapT = THREE.RepeatWrapping;
+  waterTex.repeat.set(3, 3);
+
+  function hash2(ix, iy, seed) {
+    let h = (Math.imul(ix, 374761393) + Math.imul(iy, 668265263) + Math.imul(seed, 974634211)) | 0;
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+  }
+  function vnoise(u, v, period, seed) {
+    const x = u * period, y = v * period;
+    const ix = Math.floor(x), iy = Math.floor(y);
+    const fx = x - ix, fy = y - iy;
+    const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+    const w = (a, b) => hash2(((a % period) + period) % period, ((b % period) + period) % period, seed);
+    const top = w(ix, iy) + (w(ix + 1, iy) - w(ix, iy)) * sx;
+    const bot = w(ix, iy + 1) + (w(ix + 1, iy + 1) - w(ix, iy + 1)) * sx;
+    return top + (bot - top) * sy;
+  }
+  function chop(u, v) {
+    return vnoise(u, v, 6, 17) * 0.55
+         + vnoise(u, v, 13, 29) * 0.3
+         + vnoise(u, v, 27, 41) * 0.15
+         + Math.sin((u * 3.0 + v * 9.0) * Math.PI * 2) * 0.05;
+  }
+  const nc = document.createElement('canvas'); nc.width = nc.height = 256;
+  {
+    const g2 = nc.getContext('2d');
+    const img = g2.createImageData(256, 256);
+    const S = 0.7, E = 1 / 256;
+    for (let y = 0; y < 256; y++) for (let x = 0; x < 256; x++) {
+      const u = x / 256, v = y / 256;
+      const dx = (chop(u + E, v) - chop(u - E, v)) * S;
+      const dy = (chop(u, v + E) - chop(u, v - E)) * S;
+      const inv = 1 / Math.hypot(dx, dy, 1);
+      const i = (y * 256 + x) * 4;
+      img.data[i] = (-dx * inv * 0.5 + 0.5) * 255;
+      img.data[i + 1] = (dy * inv * 0.5 + 0.5) * 255;
+      img.data[i + 2] = (inv * 0.5 + 0.5) * 255;
+      img.data[i + 3] = 255;
+    }
+    g2.putImageData(img, 0, 0);
+  }
+  const waterNrm = new THREE.CanvasTexture(nc);
+  waterNrm.wrapS = waterNrm.wrapT = THREE.RepeatWrapping;
+  waterNrm.repeat.set(11, 11);
+
+  const rc = document.createElement('canvas'); rc.width = rc.height = 256;
+  {
+    const g2 = rc.getContext('2d');
+    mottle(g2, 256, '#bdbdbd', [
+      ['#767676', 0.6, 20, 70, 22],
+      ['#e4e4e4', 0.55, 14, 46, 20],
+      ['#989898', 0.5, 26, 90, 14],
+    ], bayRng, null);
+  }
+  const waterRgh = new THREE.CanvasTexture(rc);
+  waterRgh.wrapS = waterRgh.wrapT = THREE.RepeatWrapping;
+  waterRgh.repeat.set(5, 5);
+
+  const water = new THREE.Mesh(new THREE.PlaneGeometry(95, 95),
+    new THREE.MeshStandardMaterial({
+      map: waterTex, color: 0xffffff,
+      normalMap: waterNrm, normalScale: new THREE.Vector2(0.3, 0.3),
+      roughness: 0.88, metalness: 0.0, envMapIntensity: 0.3 }));
+  water.rotation.x = -Math.PI / 2;
+  water.position.y = 0.3;
+  water.receiveShadow = true;
+  scene.add(water);
+
+  /* broad water colour in world coordinates: an amber reflection pool
+     under the skyline, pale shallows licking both shores, deep slate
+     down the middle of the bay */
+  {
+    const tc = document.createElement('canvas'); tc.width = tc.height = 1024;
+    const tg = tc.getContext('2d');
+    const px = (x, z) => [(x + 26) / 52 * 1024, (z + 26) / 52 * 1024];
+    const blob = (x, z, rWorld, rgb, a) => {
+      const [cx, cy] = px(x, z);
+      const r = rWorld / 52 * 1024;
+      const gr = tg.createRadialGradient(cx, cy, 0, cx, cy, r);
+      gr.addColorStop(0, `rgba(${rgb},${a})`);
+      gr.addColorStop(1, `rgba(${rgb},0)`);
+      tg.fillStyle = gr;
+      tg.beginPath(); tg.arc(cx, cy, r, 0, 7); tg.fill();
+    };
+    for (let x = -24; x <= 24; x += 3.4) {
+      blob(x, 0.4, 5.4, '7,32,58', 0.28);           // deep channel
+      blob(x, -6.4, 3.6, '232,150,84', 0.09);       // skyline reflection
+      blob(x, 6.6, 3.2, '70,150,150', 0.13);        // near-shore shallows
+    }
+    blob(2.5, -6.6, 4.4, '255,176,102', 0.15);      // afterglow pool
+    const tintTex = new THREE.CanvasTexture(tc);
+    tintTex.colorSpace = THREE.SRGBColorSpace;
+    const tintGeo = new THREE.PlaneGeometry(52, 52);
+    tintGeo.rotateX(-Math.PI / 2);
+    const tint = new THREE.Mesh(tintGeo, new THREE.MeshBasicMaterial({
+      map: tintTex, transparent: true, depthWrite: false }));
+    tint.position.y = 0.315;
+    tint.renderOrder = 1;
+    scene.add(tint);
+  }
+
+  /* sun glint: a warm sheen across the bay toward the skyline,
+     punched with sparkle holes so the chop breaks it into glitter */
+  {
+    const gc2 = document.createElement('canvas'); gc2.width = 256; gc2.height = 128;
+    const gg2 = gc2.getContext('2d');
+    const grd = gg2.createRadialGradient(128, 64, 4, 128, 64, 122);
+    grd.addColorStop(0, 'rgba(255,200,120,0.95)');
+    grd.addColorStop(1, 'rgba(255,150,60,0)');
+    gg2.fillStyle = grd; gg2.fillRect(0, 0, 256, 128);
+    gg2.globalCompositeOperation = 'destination-out';
+    const grng2 = mulberry32(5150);
+    for (let i = 0; i < 320; i++) {
+      const x = grng2() * 256, y = grng2() * 128, r = 1.5 + grng2() * 9;
+      const hole = gg2.createRadialGradient(x, y, 0, x, y, r);
+      hole.addColorStop(0, `rgba(0,0,0,${0.3 + grng2() * 0.5})`);
+      hole.addColorStop(1, 'rgba(0,0,0,0)');
+      gg2.fillStyle = hole;
+      gg2.beginPath(); gg2.arc(x, y, r, 0, 7); gg2.fill();
+    }
+    const glintTex = new THREE.CanvasTexture(gc2);
+    glintTex.colorSpace = THREE.SRGBColorSpace;
+    const glint = new THREE.Mesh(new THREE.PlaneGeometry(32, 9),
+      new THREE.MeshBasicMaterial({ map: glintTex, transparent: true, opacity: 0.32,
+        blending: THREE.AdditiveBlending, depthWrite: false }));
+    glint.rotation.x = -Math.PI / 2;
+    glint.rotation.z = 0.18;
+    glint.position.set(-0.5, 0.33, -3.4);
+    glint.renderOrder = 2;
+    scene.add(glint);
+  }
+
+  /* ---------- shores ---------- */
+  const shoreMat = std(0x2e3648, 0.95);
+  const shoreTopMat = std(0x4d5a75, 0.9);
+  function shoreSlab(x0, x1, z0, z1, topY) {
+    /* a low land slab: dark cliff sides, a slightly lighter deck */
+    const w = x1 - x0, d = z1 - z0;
+    const side = box(w, topY, d, shoreMat, (x0 + x1) / 2, topY / 2, (z0 + z1) / 2);
+    side.castShadow = false;
+    const deck = new THREE.Mesh(new THREE.PlaneGeometry(w, d), shoreTopMat);
+    deck.rotation.x = -Math.PI / 2;
+    deck.position.set((x0 + x1) / 2, topY + 0.01, (z0 + z1) / 2);
+    deck.receiveShadow = true;
+    scene.add(deck);
+    return deck;
+  }
+  /* far shore: the city bank, running across the back of the bay */
+  shoreSlab(-26, 26, -14, -8.2, 0.95);
+  /* near shore: a promenade corner in the foreground, flags on it */
+  shoreSlab(-26, 0, 9.0, 15.5, 0.9);
+
+  /* promenade lamp-light strips along both waterfronts */
+  const lampStripMat = new THREE.MeshBasicMaterial({ color: 0xffc98a });
+  function lampStrip(x0, x1, z, y) {
+    const len = x1 - x0;
+    const s = new THREE.Mesh(new THREE.BoxGeometry(len, 0.05, 0.09), lampStripMat);
+    s.position.set((x0 + x1) / 2, y, z);
+    scene.add(s);
+  }
+  lampStrip(-25, 25, -8.4, 1.0);
+  lampStrip(-25, -1, 9.25, 0.95);
+
+  /* hills behind the skyline — dark ridges dissolving into haze */
+  const hillMat = std(0x272f47, 1.0);
+  [[-13, -20, 17, 6.0], [2, -22, 21, 7.4], [15, -19.5, 15, 5.2]].forEach(([x, z, w, h]) => {
+    const hill = new THREE.Mesh(new THREE.ConeGeometry(w / 2, h, 7), hillMat);
+    hill.position.set(x, h / 2 - 0.4, z);
+    hill.castShadow = false; hill.receiveShadow = false;
+    scene.add(hill);
+  });
+
+  /* ---------- the skyline: towers with painted lit windows ---------- */
+  function windowTexture(seed, litRatio, warm) {
+    const c = document.createElement('canvas'); c.width = 64; c.height = 128;
+    const g = c.getContext('2d');
+    g.fillStyle = '#12151f'; g.fillRect(0, 0, 64, 128);
+    const rng = mulberry32(seed);
+    for (let row = 0; row < 21; row++) for (let col = 0; col < 6; col++) {
+      const x = 4 + col * 10, y = 5 + row * 6;
+      if (rng() < litRatio) {
+        const t = rng();
+        g.fillStyle = warm
+          ? (t < 0.7 ? '#ffca7d' : '#ffe9bb')
+          : (t < 0.55 ? '#ffd9a0' : '#bcd8ff');
+        g.globalAlpha = 0.55 + rng() * 0.45;
+      } else {
+        g.fillStyle = '#232a3d'; g.globalAlpha = 0.8;
+      }
+      g.fillRect(x, y, 6, 3.6);
+    }
+    g.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+  const towerMats = [];
+  for (let i = 0; i < 5; i++) {
+    const tex = windowTexture(3100 + i * 77, 0.42 + i * 0.05, i % 2 === 0);
+    towerMats.push(new THREE.MeshStandardMaterial({
+      color: 0x8d97ad, roughness: 0.42, metalness: 0.35,
+      emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.85, map: tex }));
+  }
+  const crownCols = [0x37e0d8, 0xffb54d, 0xff5f9e, 0x9fd8ff, 0xffe9bb];
+  {
+    const rng = mulberry32(777);
+    const placed = [];
+    for (let i = 0; i < 56; i++) {
+      const x = -23.5 + rng() * 47;
+      if (Math.abs(x - 2.5) < 2.6) continue;              // summit tower plot
+      if (placed.some(p => Math.abs(p - x) < 1.2)) continue;
+      placed.push(x);
+      const back = rng() < 0.45;
+      const z = back ? -12.4 - rng() * 1.3 : -10.3 - rng() * 1.4;
+      const w = 0.9 + rng() * 0.95, d = 0.9 + rng() * 0.85;
+      const h = (back ? 2.6 : 3.2) + rng() * rng() * 5.2;
+      const mat = towerMats[Math.floor(rng() * towerMats.length)];
+      const t = box(w, h, d, mat, x, 0.95 + h / 2, z);
+      t.castShadow = false;
+      if (rng() < 0.4) {                                   // coloured crown light
+        const crown = new THREE.Mesh(new THREE.BoxGeometry(w * 0.7, 0.14, d * 0.7),
+          new THREE.MeshBasicMaterial({ color: crownCols[Math.floor(rng() * crownCols.length)] }));
+        crown.position.set(x, 0.95 + h + 0.08, z);
+        scene.add(crown);
+      }
+    }
+  }
+
+  /* the summit tower: a tapered landmark over the bay, warm-lit crown
+     and a spire beacon — the APEC venue silhouette */
+  {
+    const grp = new THREE.Group();
+    const glass = new THREE.MeshStandardMaterial({
+      color: 0x9aa7c2, roughness: 0.3, metalness: 0.45,
+      emissive: 0xffffff, emissiveMap: windowTexture(9020, 0.62, true),
+      emissiveIntensity: 1.0, map: windowTexture(9020, 0.62, true) });
+    const tiers = [[2.5, 4.2], [2.0, 3.6], [1.5, 3.2], [1.05, 2.4]];
+    let y = 0;
+    for (const [w, h] of tiers) {
+      const seg = new THREE.Mesh(new THREE.BoxGeometry(w, h, w), glass);
+      seg.position.set(0, y + h / 2, 0);
+      seg.castShadow = true;
+      grp.add(seg);
+      y += h;
+    }
+    const crownMat = new THREE.MeshBasicMaterial({ color: 0xffd9a0 });
+    const crown = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.3, 1.1), crownMat);
+    crown.position.set(0, y + 0.15, 0); grp.add(crown);
+    const spire = cyl(0.035, 0.05, 1.5, std(0xd8d2c0, 0.5, 0.4), 0, y + 1.0, 0, grp);
+    spire.castShadow = false;
+    const beacon = glowSprite(warmGlowTex, 1.7, 0.85);
+    beacon.position.set(0, y + 1.8, 0); grp.add(beacon);
+    const halo = glowSprite(warmGlowTex, 4.2, 0.28);
+    halo.position.set(0, y + 0.3, 0); grp.add(halo);
+    grp.position.set(2.5, 0.95, -10.6);
+    scene.add(grp);
+  }
+
+  /* ---------- motorcade: dark cars, headlight glows, light streaks
+     along the far waterfront road ---------- */
+  {
+    const road = new THREE.Mesh(new THREE.PlaneGeometry(50, 1.15),
+      std(0x1d222e, 0.95));
+    road.rotation.x = -Math.PI / 2;
+    road.position.set(0, 0.97, -9.0);
+    road.receiveShadow = true;
+    scene.add(road);
+    const carMat = std(0x14161f, 0.35, 0.5);
+    const rng = mulberry32(2026);
+    for (let i = 0; i < 13; i++) {
+      const x = -21 + i * 3.4 + rng() * 1.1;
+      const z = -9.0 + (i % 2 === 0 ? -0.24 : 0.24);
+      const car = box(1.05, 0.3, 0.46, carMat, x, 1.14, z);
+      car.castShadow = false;
+      box(0.55, 0.2, 0.4, carMat, x - 0.05, 1.36, z);
+      const dir = i % 2 === 0 ? 1 : -1;
+      const head = glowSprite(coolGlowTex, 0.62, 0.85);
+      head.position.set(x + dir * 0.72, 1.14, z); scene.add(head);
+      const tail = glowSprite(warmGlowTex, 0.4, 0.6);
+      tail.position.set(x - dir * 0.68, 1.14, z); scene.add(tail);
+    }
+    /* three long light streaks: the motorcade's motion frozen in the dusk */
+    const streakTex = glowTexture('rgba(255,235,200,0.85)', 'rgba(255,190,110,0)');
+    [[-13.5, -9.25], [-2.5, -8.75], [9.5, -9.25]].forEach(([x, z]) => {
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(7.5, 0.34),
+        new THREE.MeshBasicMaterial({ map: streakTex, transparent: true, opacity: 0.4,
+          blending: THREE.AdditiveBlending, depthWrite: false }));
+      m.rotation.x = -Math.PI / 2;
+      m.position.set(x, 1.0, z);
+      m.renderOrder = 3;
+      scene.add(m);
+    });
+  }
+
+  /* lamps along the near promenade */
+  {
+    const poleMat = std(0x22262e, 0.6, 0.4);
+    for (let x = -23; x <= -2; x += 4.2) {
+      cyl(0.035, 0.045, 1.5, poleMat, x, 1.65, 9.45);
+      const lamp = glowSprite(warmGlowTex, 0.85, 0.75);
+      lamp.position.set(x, 2.45, 9.45);
+      scene.add(lamp);
+    }
+  }
+
+  /* ---------- the three flags on the summit promenade ----------
+     Painted cloth: each flag is drawn on canvas — field, charges and
+     a soft diagonal shading so the cloth reads as cloth, not a card. */
+  function flagTexture(draw) {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 160;
+    const g = c.getContext('2d');
+    draw(g, 256, 160);
+    const shade = g.createLinearGradient(0, 0, 256, 60);
+    shade.addColorStop(0, 'rgba(255,255,255,0.13)');
+    shade.addColorStop(0.45, 'rgba(0,0,0,0.10)');
+    shade.addColorStop(0.75, 'rgba(255,255,255,0.08)');
+    shade.addColorStop(1, 'rgba(0,0,0,0.14)');
+    g.fillStyle = shade; g.fillRect(0, 0, 256, 160);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+  function star(g, cx, cy, r, color) {
+    g.fillStyle = color;
+    g.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const a = -Math.PI / 2 + i * (Math.PI * 4 / 5);
+      const px2 = cx + Math.cos(a) * r, py2 = cy + Math.sin(a) * r;
+      if (i === 0) g.moveTo(px2, py2); else g.lineTo(px2, py2);
+    }
+    g.closePath(); g.fill();
+  }
+  const flagUS = flagTexture((g, w, h) => {
+    for (let i = 0; i < 7; i++) { g.fillStyle = i % 2 === 0 ? '#b22234' : '#f5f0e6'; g.fillRect(0, i * h / 7, w, h / 7 + 1); }
+    g.fillStyle = '#3c3b6e'; g.fillRect(0, 0, w * 0.42, h * 4 / 7);
+    g.fillStyle = '#ffffff';
+    for (let r = 0; r < 5; r++) for (let cIdx = 0; cIdx < 6; cIdx++) {
+      g.beginPath(); g.arc(9 + cIdx * 17, 10 + r * 17, 2.6, 0, 7); g.fill();
+    }
+  });
+  const flagCN = flagTexture((g, w, h) => {
+    g.fillStyle = '#de2910'; g.fillRect(0, 0, w, h);
+    star(g, 34, 34, 17, '#ffde00');
+    star(g, 68, 16, 6, '#ffde00'); star(g, 78, 36, 6, '#ffde00');
+    star(g, 78, 58, 6, '#ffde00'); star(g, 68, 76, 6, '#ffde00');
+  });
+  const flagRU = flagTexture((g, w, h) => {
+    g.fillStyle = '#f5f5f5'; g.fillRect(0, 0, w, h / 3 + 1);
+    g.fillStyle = '#0039a6'; g.fillRect(0, h / 3, w, h / 3 + 1);
+    g.fillStyle = '#d52b1e'; g.fillRect(0, 2 * h / 3, w, h / 3 + 1);
+  });
+  {
+    const poleMat = std(0xb9bec8, 0.35, 0.8);
+    const flags = [
+      { tex: flagUS, x: -11.6, poleH: 5.4 },
+      { tex: flagCN, x: -7.9, poleH: 6.0 },   // host flag, centre, tallest
+      { tex: flagRU, x: -4.2, poleH: 5.4 },
+    ];
+    for (const f of flags) {
+      cyl(0.05, 0.065, f.poleH, poleMat, f.x, 0.9 + f.poleH / 2, 10.3);
+      const finial = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8),
+        new THREE.MeshBasicMaterial({ color: 0xffd9a0 }));
+      finial.position.set(f.x, 0.9 + f.poleH + 0.09, 10.3);
+      scene.add(finial);
+      const cloth = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 1.42, 12, 1),
+        new THREE.MeshStandardMaterial({ map: f.tex, side: THREE.DoubleSide,
+          roughness: 0.85, metalness: 0.0 }));
+      /* a gentle frozen billow: displace the cloth's vertices in a
+         seeded wave so it hangs like fabric in a light breeze */
+      const pos = cloth.geometry.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        const pxv = pos.getX(i);
+        pos.setZ(i, Math.sin((pxv + 1.15) * 2.6) * 0.1 * (pxv + 1.15) / 2.3);
+      }
+      pos.needsUpdate = true;
+      cloth.geometry.computeVertexNormals();
+      cloth.position.set(f.x + 1.18, 0.9 + f.poleH - 0.8, 10.3);
+      cloth.rotation.y = -0.32;
+      cloth.castShadow = true;
+      scene.add(cloth);
+    }
+    /* plaza floor sheen in front of the poles */
+    const plaza = glowSprite(warmGlowTex, 8.5, 0.16);
+    plaza.position.set(-7.9, 1.7, 10.1);
+    scene.add(plaza);
+  }
+
+  /* a small patrol boat crossing the lower bay, wake behind it */
+  {
+    const grp = new THREE.Group();
+    const hull = box(1.7, 0.34, 0.5, std(0xd8d5cc, 0.6, 0.2), 0, 0.18, 0, grp);
+    hull.castShadow = false;
+    box(0.6, 0.34, 0.4, std(0x39424c, 0.6, 0.2), -0.25, 0.5, 0, grp);
+    const light = glowSprite(coolGlowTex, 0.55, 0.8);
+    light.position.set(0.4, 0.75, 0); grp.add(light);
+    grp.position.set(11.5, 0.32, 3.2);
+    grp.rotation.y = 0.5;
+    scene.add(grp);
+    const wakeTexC = document.createElement('canvas'); wakeTexC.width = 128; wakeTexC.height = 64;
+    const wg = wakeTexC.getContext('2d');
+    const wgr = wg.createRadialGradient(64, 32, 2, 64, 32, 62);
+    wgr.addColorStop(0, 'rgba(230,244,255,0.5)');
+    wgr.addColorStop(1, 'rgba(230,244,255,0)');
+    wg.fillStyle = wgr; wg.fillRect(0, 0, 128, 64);
+    const wakeTex = new THREE.CanvasTexture(wakeTexC);
+    const wake = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 1.1),
+      new THREE.MeshBasicMaterial({ map: wakeTex, transparent: true, opacity: 0.5, depthWrite: false }));
+    wake.rotation.x = -Math.PI / 2;
+    wake.rotation.z = 0.5;
+    wake.position.set(10.2, 0.335, 3.9);
+    wake.renderOrder = 2;
+    scene.add(wake);
+  }
+
+  /* render a few frames so shadows and sprites settle, then flag ready */
+  let frames = 0;
+  renderer.setAnimationLoop(() => {
+    renderer.render(scene, camera);
+    if (++frames >= 4) {
+      renderer.setAnimationLoop(null);
+      window.__sceneReady = true;
+    }
+  });
+}
+</script>
+</body>
+</html>
